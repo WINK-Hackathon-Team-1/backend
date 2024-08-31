@@ -27,14 +27,14 @@ public class CommunityController {
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<?> updateCommunity(@PathVariable Long id, @RequestBody CommunityRequestDto communityRequestDto) {
         communityService.update(id, communityRequestDto);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteCommunity(@PathVariable("id") Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCommunity(@PathVariable Long id) {
         communityService.delete(id);
         return ResponseEntity.ok().build();
     }
