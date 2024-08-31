@@ -12,8 +12,6 @@ public class CommunityResponseDto {
     private Long id;
     private String title;
     private String content;
-    private String x;
-    private String y;
     private LocalDateTime createTime;
 
     public static CommunityResponseDto create(Community community) {
@@ -21,8 +19,6 @@ public class CommunityResponseDto {
                 .id(community.getId())
                 .title(community.getTitle())
                 .content(community.getContent())
-                .x(community.getX())
-                .y(community.getY())
                 .createTime(community.getCreateTime())
                 .build();
     }

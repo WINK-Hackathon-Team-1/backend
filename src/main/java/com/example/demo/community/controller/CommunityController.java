@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/community")
@@ -16,9 +14,9 @@ public class CommunityController {
 
     private final CommunityService communityService;
 
-    @GetMapping("")
-    public ResponseEntity<List<CommunityResponseDto>> getCommunityList() {
-        return ResponseEntity.ok(communityService.findAll());
+    @GetMapping("/{id}")
+    public ResponseEntity<CommunityResponseDto> getCommunity(@PathVariable Long id) {
+        return ResponseEntity.ok(communityService.findCommunity(id));
     }
 
     @PostMapping("")

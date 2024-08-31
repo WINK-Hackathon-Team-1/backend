@@ -4,36 +4,34 @@ import com.example.demo.community.domain.Community;
 import com.example.demo.community.dto.CommunityRequestDto;
 import com.example.demo.community.dto.CommunityResponseDto;
 import com.example.demo.community.repository.CommunityRepository;
-import com.example.demo.member.repository.MemberRepository;
+import com.example.demo.communityList.domain.CommunityList;
+import com.example.demo.communityList.repository.CommunityListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class CommunityService {
 
     private final CommunityRepository communityRepository;
-    private final MemberRepository memberRepository;
+    private final CommunityListRepository communityListRepository;
 
-    public List<CommunityResponseDto> findAll() {
-        List<Community> communities = communityRepository.findAll();
-        List<CommunityResponseDto> response = new ArrayList<>();
-        for (Community community : communities) {
-            response.add(CommunityResponseDto.create(community));
-        }
-        return response;
+    public CommunityResponseDto findCommunity(Long id) {
+        Community community = communityRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid community Id"));
+        return CommunityResponseDto.create(community);
     }
 
     public void writeCommunity(CommunityRequestDto communityRequestDto) {
+        CommunityList communityList = communityListRepository.findById(communityRequestDto.getListId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid communityList id"));
+
         Community community = Community.builder()
                 .title(communityRequestDto.getTitle())
                 .content(communityRequestDto.getContent())
-                .x(communityRequestDto.getX())
-                .y(communityRequestDto.getY())
+                .communityList(communityList)
                 .createTime(LocalDateTime.now())
                 .build();
         communityRepository.save(community);
