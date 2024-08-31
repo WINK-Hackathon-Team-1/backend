@@ -115,6 +115,7 @@ public class MemberController {
         Member member = members.get(0);
 
         memberRepository.delete(member);
+
     }
 
 
