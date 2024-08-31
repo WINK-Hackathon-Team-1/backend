@@ -6,6 +6,7 @@ import com.example.demo.member.repository.MemberRepository;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -65,6 +66,9 @@ public class MemberController {
 
     }
 
+
+
+
     //회원 아이디로 조회
     @GetMapping("/members/{userId}")
     public Member getUserIdMember(@PathVariable String userId){
@@ -73,10 +77,10 @@ public class MemberController {
         return member;
     }
 
+
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/member/edit")
     public String editMember(@RequestBody MemberEditDto request) throws Exception {
-
-
 
         List<Member> findMembers = memberRepository.findByUserId(request.userId);
         Member findMember = findMembers.get(0);
@@ -98,23 +102,21 @@ public class MemberController {
     }
 
 
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/delete/{userId}")
+    public void deleteMember(@PathVariable String userId) throws Exception {
 
-    @DeleteMapping("/delete/{id}")
-    public Member deleteMember(@PathVariable Long id){
+        if (userId == null){
+            throw new Exception("유저 아이디가 없습니다!");
+        }
 
-        Member member = memberRepository.findById(id);
+        List<Member> members = memberRepository.findByUserId(userId);
 
-        //memberRepository.delete(member);
+        Member member = members.get(0);
 
-        return member;
+        memberRepository.delete(member);
     }
 
-
-
-    @GetMapping("/")
-    public String showAllMembers(){
-        return "members";
-    }
 
     @Data
     @Getter

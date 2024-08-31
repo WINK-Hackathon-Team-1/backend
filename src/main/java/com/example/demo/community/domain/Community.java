@@ -1,8 +1,11 @@
 package com.example.demo.community.domain;
 
 import com.example.demo.community.dto.CommunityRequestDto;
+import com.example.demo.communityList.domain.CommunityList;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor
@@ -21,9 +24,11 @@ public class Community {
 
     private String content;
 
-    //todo: 되면 카테고리 추가
+    private LocalDateTime createTime;
 
-    //todo: 사용자 ManytoOne 매핑
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "list_id")
+    private CommunityList communityList;
 
     public Community update(CommunityRequestDto requestDto) {
         this.title = requestDto.getTitle();

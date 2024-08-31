@@ -1,0 +1,51 @@
+[33mcommit efde1ad59526b1743ef532efca2dedf8dcb00ba1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/albamon[m[33m)[m
+Author: Fletacode <bassykd@gmail.com>
+Date:   Sat Aug 31 23:48:41 2024 +0900
+
+    Member 엔티티 수정
+    로그인 회원가입 수정
+    회원 수정 기능 생성
+
+[33mcommit b113f0b300b346cbdf977b16ad60c60bf92fe6d9[m[33m ([m[1;31morigin/develop[m[33m)[m
+Merge: fcf37f4 510b771
+Author: sdc <111255784+clzlol@users.noreply.github.com>
+Date:   Sat Aug 31 20:26:07 2024 +0900
+
+    Merge pull request #1 from WINK-Hackathon-Team-1/feature/community
+    
+    feat: 커뮤니티 구현
+
+[33mcommit fcf37f45fa48a9c28625a03c868edf0541fa5f4a[m
+Merge: 73152c6 ddff043
+Author: sdc <111255784+clzlol@users.noreply.github.com>
+Date:   Sat Aug 31 20:25:54 2024 +0900
+
+    Merge pull request #2 from WINK-Hackathon-Team-1/feature/login,regi,editUser
+    
+    feat: 로그인 기능 구현
+
+[33mcommit ddff043edf416c16795cd385cbbe54ee8bb3b18d[m[33m ([m[1;31morigin/feature/login,regi,editUser[m[33m, [m[1;32mfeature/login,regi,editUser[m[33m)[m
+Author: Fletacode <bassykd@gmail.com>
+Date:   Sat Aug 31 20:16:47 2024 +0900
+
+    Member 엔티티 수정
+    로그인 회원가입 수정
+    회원 수정 기능 생성
+
+[33mcommit 510b771df94f2f17354f2d2e74e78a37cea95413[m[33m ([m[1;31morigin/feature/community[m[33m)[m
+Author: clzlol <nyc0527@naver.com>
+Date:   Sat Aug 31 20:15:39 2024 +0900
+
+    refactor: patch, delete url 수정
+
+[33mcommit 0d5cba21e88c600eadf51827bbb61debb192869e[m
+Author: clzlol <nyc0527@naver.com>
+Date:   Sat Aug 31 19:51:51 2024 +0900
+
+    feat: 커뮤니티 crud 기능 구현
+
+[33mcommit 73152c66c113f42174df57ace1fa56b8f07c63b2[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Fletacode <bassykd@gmail.com>
+Date:   Sat Aug 31 16:21:28 2024 +0900
+
+    init 로그인회원가입 기능구현
