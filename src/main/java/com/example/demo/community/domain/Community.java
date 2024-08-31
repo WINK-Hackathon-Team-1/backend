@@ -1,6 +1,7 @@
 package com.example.demo.community.domain;
 
 import com.example.demo.community.dto.CommunityRequestDto;
+import com.example.demo.communityList.domain.CommunityList;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,19 +24,15 @@ public class Community {
 
     private String content;
 
-    // 경도
-    private String x;
-
-    // 위도
-    private String y;
-
     private LocalDateTime createTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "list_id")
+    private CommunityList communityList;
 
     public Community update(CommunityRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
-        this.x = requestDto.getX();
-        this.y = requestDto.getY();
         return this;
     }
 }
