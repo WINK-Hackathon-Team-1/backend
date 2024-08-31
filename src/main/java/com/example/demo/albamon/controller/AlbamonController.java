@@ -18,7 +18,7 @@ public class AlbamonController {
 
     private final AlbamonRepository albamonRepository;
 
-    @GetMapping("/albamon")
+    @PostMapping("/albamon")
     public List<Albamon> getAlbamon(@RequestBody List<LocationDto> LocationDtos) {
         if (LocationDtos.size() != 2) {
             throw new IllegalArgumentException("Exactly two coordinates are required to define a rectangle.");
