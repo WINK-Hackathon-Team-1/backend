@@ -1,7 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.hello.domain.Member;
-import com.example.demo.hello.repository.MemberRepository;
+import com.example.demo.member.domain.Member;
+import com.example.demo.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,18 +23,29 @@ public class MyUserDetailsService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
-        if (name == null) {
-            throw new UsernameNotFoundException("User not found with username: " + name);
+        if (userId == null) {
+
+            throw new UsernameNotFoundException("User not found with username: " + userId);
         }
 
 
-        Member member = memberRepository.findByname(name);
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        List<Member> members = memberRepository.findByUserId(userId);
 
-        grantedAuthorities.add(new SimpleGrantedAuthority("일반유저"));
+        if (members.isEmpty()) {
+            throw new UsernameNotFoundException("User not found with username: " + userId);
+        }else{
 
-        return new User(member.getName(),member.getPassword(),grantedAuthorities);
+            Member member = members.get(0);
+            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+
+            grantedAuthorities.add(new SimpleGrantedAuthority("일반유저"));
+
+            return new User(member.getUserId(),member.getPassword(),grantedAuthorities);
+
+        }
+
+
     }
 }

@@ -1,8 +1,7 @@
-package com.example.demo.hello.repository;
+package com.example.demo.member.repository;
 
-import com.example.demo.hello.domain.Member;
+import com.example.demo.member.domain.Member;
 import jakarta.persistence.EntityManager;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +24,31 @@ public class MemberRepository {
         return em.find(Member.class, id);
     }
 
+
+
+    public List<Member> findByUserId(String userId) {
+        List<Member> members =  em.createQuery("select m from Member m where m.userId = :userId")
+                .setParameter("userId", userId)
+                .getResultList();
+
+        return members;
+    }
+
+
+
+    public void editMember(String name,String password,String userId) {
+
+        String query = "update Member m set m.password = :password, m.name = :name " +
+                "where m.userId = :userId";
+
+        em.createQuery(query)
+                .setParameter("password", password )
+                .setParameter("name", name)
+                .setParameter("userId",userId)
+                .executeUpdate();
+
+    }
+
     public void delete(Member member) {
         em.remove(member);
     }
@@ -37,9 +61,7 @@ public class MemberRepository {
                 setParameter("name",name).getSingleResult();
     }
 
-    public List<Member> findAll(){
-        return em.createQuery("select m from Member m",Member.class).getResultList();
-    }
+
 
 
 
