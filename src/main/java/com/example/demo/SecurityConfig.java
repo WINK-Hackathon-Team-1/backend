@@ -50,7 +50,7 @@ public class SecurityConfig {
 
         http.formLogin((formLogin) -> formLogin
                 .loginProcessingUrl("/login")  // 로그인 처리 URL
-                .usernameParameter("name")
+                .usernameParameter("userId")
                 .passwordParameter("password")
                 .successHandler(successHandler())  // 성공 시 핸들러
                 .failureHandler(failureHandler())  // 실패 시 핸들러
@@ -146,6 +146,8 @@ public class SecurityConfig {
         connector.setRedirectPort(443);
         return connector;
     }
+
+
 
 
 
