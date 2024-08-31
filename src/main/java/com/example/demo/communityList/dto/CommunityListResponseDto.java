@@ -9,6 +9,7 @@ import java.util.List;
 @Builder
 @Getter
 public class CommunityListResponseDto {
+    private Long id;
     private String placeName;
     private String x;
     private String y;

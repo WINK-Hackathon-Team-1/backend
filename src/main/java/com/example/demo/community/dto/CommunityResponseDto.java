@@ -4,7 +4,7 @@ import com.example.demo.community.domain.Community;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Builder
 @Getter
@@ -12,7 +12,7 @@ public class CommunityResponseDto {
     private Long id;
     private String title;
     private String content;
-    private LocalDateTime createTime;
+    private LocalDate createTime;
 
     public static CommunityResponseDto create(Community community) {
         return CommunityResponseDto.builder()

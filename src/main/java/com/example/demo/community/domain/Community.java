@@ -5,7 +5,7 @@ import com.example.demo.communityList.domain.CommunityList;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Builder
 @AllArgsConstructor
@@ -24,7 +24,7 @@ public class Community {
 
     private String content;
 
-    private LocalDateTime createTime;
+    private LocalDate createTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "list_id")

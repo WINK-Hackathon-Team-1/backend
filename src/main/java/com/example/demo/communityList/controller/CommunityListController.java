@@ -1,6 +1,5 @@
 package com.example.demo.communityList.controller;
 
-import com.example.demo.community.domain.Community;
 import com.example.demo.community.dto.CommunityResponseDto;
 import com.example.demo.communityList.dto.CommunityListRequestDto;
 import com.example.demo.communityList.dto.CommunityListResponseDto;
@@ -18,9 +17,14 @@ public class CommunityListController {
 
     private final CommunityListService communityListService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CommunityListResponseDto> getCommunityList(@PathVariable Long id) {
-        return ResponseEntity.ok(communityListService.getCommunityList(id));
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<CommunityListResponseDto>> getCommunityList(@PathVariable String userId) {
+        return ResponseEntity.ok(communityListService.getCommunityList(userId));
+    }
+
+    @GetMapping("/all/{userId}")
+    public ResponseEntity<List<CommunityResponseDto>> getAllCommunityListByUserId(@PathVariable String userId) {
+        return ResponseEntity.ok(communityListService.getAllCommunityListByUserId(userId));
     }
 
     @PostMapping("")
