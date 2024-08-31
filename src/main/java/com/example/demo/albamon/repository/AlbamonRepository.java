@@ -26,7 +26,7 @@ public interface AlbamonRepository extends JpaRepository<Albamon, Long> {
             "LIMIT 50", nativeQuery = true)
     List<Albamon> findByLocationInRectangle(
             @Param("lat1") double lat1,
-            @Param("lng1") double lng1,
             @Param("lat2") double lat2,
+            @Param("lng1") double lng1,
             @Param("lng2") double lng2);
 }
