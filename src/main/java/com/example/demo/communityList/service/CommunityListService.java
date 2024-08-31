@@ -23,8 +23,11 @@ public class CommunityListService {
     private final MemberRepository memberRepository;
 
     public List<CommunityListResponseDto> getCommunityList(String userId){
-        Member member = memberRepository.findByUserId(userId).get(0);
-        List<CommunityList> communityLists = member.getCommunityList();
+        List<Member> member = memberRepository.findByUserId(userId);
+        if (member.isEmpty()){
+            throw new IllegalStateException("Invalid user");
+        }
+        List<CommunityList> communityLists = member.get(0).getCommunityList();
         List<CommunityListResponseDto> response = new ArrayList<>();
         for (CommunityList communityList : communityLists) {
             List<CommunityResponseDto> communities = new ArrayList<>();
@@ -52,14 +55,15 @@ public class CommunityListService {
         return response;
     }
 
-    public void addCommunityList(CommunityListRequestDto requestDto) {
+    public Long addCommunityList(CommunityListRequestDto requestDto) {
         Member member = memberRepository.findByUserId(requestDto.getUserId()).get(0);
-        communityListRepository.save(CommunityList.builder()
-                        .placeName(requestDto.getPlaceName())
-                        .member(member)
-                        .x(requestDto.getX())
-                        .y(requestDto.getY())
-                        .build());
+        CommunityList saved = communityListRepository.save(CommunityList.builder()
+                .placeName(requestDto.getPlaceName())
+                .member(member)
+                .x(requestDto.getX())
+                .y(requestDto.getY())
+                .build());
+        return saved.getId();
     }
 
     public void deleteCommunityList(Long id){

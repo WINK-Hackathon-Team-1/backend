@@ -28,9 +28,8 @@ public class CommunityListController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> addCommunityList(@RequestBody CommunityListRequestDto communityListRequestDto) {
-        communityListService.addCommunityList(communityListRequestDto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Long> addCommunityList(@RequestBody CommunityListRequestDto communityListRequestDto) {
+        return ResponseEntity.ok(communityListService.addCommunityList(communityListRequestDto));
     }
 
     @DeleteMapping("/{id}")

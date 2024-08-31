@@ -54,7 +54,8 @@ public class MemberController {
 
 
         if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof User user) {
-            response.put("username", user.getUsername());
+            response.put("userId", user.getUsername());
+
             // 필요에 따라 추가적인 사용자 정보 포함
             response.put("authorities", user.getAuthorities());
         } else {
