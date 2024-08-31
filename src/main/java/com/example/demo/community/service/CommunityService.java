@@ -9,7 +9,7 @@ import com.example.demo.communityList.repository.CommunityListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +32,7 @@ public class CommunityService {
                 .title(communityRequestDto.getTitle())
                 .content(communityRequestDto.getContent())
                 .communityList(communityList)
-                .createTime(LocalDateTime.now())
+                .createTime(LocalDate.now())
                 .build();
         communityRepository.save(community);
     }

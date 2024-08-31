@@ -1,6 +1,7 @@
 package com.example.demo.communityList.domain;
 
 import com.example.demo.community.domain.Community;
+import com.example.demo.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,6 +28,10 @@ public class CommunityList {
 
     // 위도
     private String y;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private Member member;
 
     @OneToMany(mappedBy = "communityList")
     private List<Community> communities = new ArrayList<>();

@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class CommunityListRequestDto {
     private String placeName;
+    private String userId;
     private String x;
     private String y;
 }

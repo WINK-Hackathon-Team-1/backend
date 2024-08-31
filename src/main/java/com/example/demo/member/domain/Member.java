@@ -25,9 +25,8 @@ public class Member {
 
     private String password;
 
-    @OneToOne
-    @JoinColumn(name = "community_list_id")
-    private CommunityList communityList;
+    @OneToMany(mappedBy = "member")
+    private List<CommunityList> communityList = new ArrayList<>();
 
     public Member(String userId, String name, String password) {
         this.name = name;

@@ -20,27 +20,43 @@ import java.util.List;
 public class CommunityListService {
 
     private final CommunityListRepository communityListRepository;
+    private final MemberRepository memberRepository;
 
-    public CommunityListResponseDto getCommunityList(Long id){
-        CommunityList communityList = communityListRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid communityList id"));
-        List<CommunityResponseDto> communities = new ArrayList<>();
-        if(!communityList.getCommunities().isEmpty()) {
+    public List<CommunityListResponseDto> getCommunityList(String userId){
+        Member member = memberRepository.findByUserId(userId).get(0);
+        List<CommunityList> communityLists = member.getCommunityList();
+        List<CommunityListResponseDto> response = new ArrayList<>();
+        for (CommunityList communityList : communityLists) {
+            List<CommunityResponseDto> communities = new ArrayList<>();
             for (Community community : communityList.getCommunities()) {
                 communities.add(CommunityResponseDto.create(community));
             }
+
+            response.add(CommunityListResponseDto.builder()
+                            .id(communityList.getId())
+                            .placeName(communityList.getPlaceName())
+                            .x(communityList.getX())
+                            .y(communityList.getY())
+                            .communities(communities)
+                    .build());
         }
-        return CommunityListResponseDto.builder()
-                .placeName(communityList.getPlaceName())
-                .x(communityList.getX())
-                .y(communityList.getY())
-                .communities(communities)
-                .build();
+        return response;
+    }
+
+    public List<CommunityResponseDto> getAllCommunityListByUserId(String userId){
+        List<CommunityListResponseDto> list = getCommunityList(userId);
+        List<CommunityResponseDto> response = new ArrayList<>();
+        for (CommunityListResponseDto communityListResponseDto : list) {
+            response.addAll(communityListResponseDto.getCommunities());
+        }
+        return response;
     }
 
     public void addCommunityList(CommunityListRequestDto requestDto) {
+        Member member = memberRepository.findByUserId(requestDto.getUserId()).get(0);
         communityListRepository.save(CommunityList.builder()
                         .placeName(requestDto.getPlaceName())
+                        .member(member)
                         .x(requestDto.getX())
                         .y(requestDto.getY())
                         .build());
