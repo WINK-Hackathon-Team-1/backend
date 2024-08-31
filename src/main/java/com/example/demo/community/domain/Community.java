@@ -1,9 +1,10 @@
 package com.example.demo.community.domain;
 
 import com.example.demo.community.dto.CommunityRequestDto;
-import com.example.demo.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor
@@ -22,16 +23,19 @@ public class Community {
 
     private String content;
 
-    //todo: 되면 카테고리 추가
+    // 경도
+    private String x;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "writer_id")
-    private Member member;
+    // 위도
+    private String y;
 
-    public Community update(CommunityRequestDto requestDto, Member member) {
+    private LocalDateTime createTime;
+
+    public Community update(CommunityRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
-        this.member = member;
+        this.x = requestDto.getX();
+        this.y = requestDto.getY();
         return this;
     }
 }

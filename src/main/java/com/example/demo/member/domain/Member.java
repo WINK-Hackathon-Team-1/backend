@@ -24,9 +24,6 @@ public class Member {
 
     private String password;
 
-    @OneToMany(mappedBy = "member")
-    private List<Community> communityList = new ArrayList<>();
-
     public Member(String userId, String name, String password) {
         this.name = name;
         this.password = password;
