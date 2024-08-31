@@ -6,6 +6,7 @@ import lombok.Getter;
 @Builder
 @Getter
 public class CommunityRequestDto {
+    private String userId;
     private String title;
     private String content;
 }
