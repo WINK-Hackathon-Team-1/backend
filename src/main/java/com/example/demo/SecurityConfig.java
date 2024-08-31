@@ -10,6 +10,8 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,9 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 
 
 
@@ -30,7 +30,8 @@ import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfig  {
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -43,14 +44,18 @@ public class SecurityConfig {
 
 
         http.csrf((csrf) -> csrf.disable());
-        http.authorizeHttpRequests((authorize) ->
-                authorize.requestMatchers("/**").permitAll()
-        );
 
+        /*
+        http.authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/**").permitAll()   // /public/** 경로는 인증 없이 접근 가능
+                //.requestMatchers("/member/edit/**").authenticated() // /admin/** 경로는 인증 필요
+                //.anyRequest().permitAll()                    // 그 외 모든 경로는 인증 없이 접근 가능
+        );
+        */
 
         http.formLogin((formLogin) -> formLogin
                 .loginProcessingUrl("/login")  // 로그인 처리 URL
-                .usernameParameter("name")
+                .usernameParameter("userId")
                 .passwordParameter("password")
                 .successHandler(successHandler())  // 성공 시 핸들러
                 .failureHandler(failureHandler())  // 실패 시 핸들러
@@ -146,6 +151,8 @@ public class SecurityConfig {
         connector.setRedirectPort(443);
         return connector;
     }
+
+
 
 
 
